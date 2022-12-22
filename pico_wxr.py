@@ -76,6 +76,11 @@ def describe_humidity(humidity):
     return description
 
 Lognbr=0
+try:
+    os.remove("logfile.csv")
+except:
+    pass
+
 while True:
     Lognbr=Lognbr+1
     display.set_pen(BLACK)
@@ -129,11 +134,6 @@ while True:
     display.text(str(round(Lognbr,2)),130,215,240,3)
     #display.text("Runtime_"+str(round(Lognbr/18,2)*100),100,220,140,2)
     
-    try:
-        os.remove("logfile.csv")
-    except:
-        pass
-    
     logf = open("logfile.csv","a")
     try:
             logf.write(str(temperature))
@@ -145,6 +145,10 @@ while True:
             logf.write(str(Lognbr))
             logf.write("\r\n")
     except OSError:
+            try:
+                os.remove("logfile.csv")
+            except:
+                pass
             print("Disk full?") # shouldn't occur
     logf.close()
 
